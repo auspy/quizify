@@ -1,4 +1,4 @@
-import prisma from "../../../../prisma/prismaClient";
+import prisma from "@/../prisma/prismaClient";
 
 export async function GET(req) {
   const user = await prisma.users.findUnique({

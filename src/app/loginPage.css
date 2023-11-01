@@ -1,73 +1,62 @@
 /* Reset some default styles for better consistency */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'poppins';
-    background-color: #fff;
-  }
-  
-  /* Set a background color for the whole page */
-  body {
-    font-family: 'poppins';
-    text-align: center;
-  }
-  
-  /* Style the header */
-  header {
-    padding: 40px 0; /* Increase top and bottom padding for more space */
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  h1 {
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 60px;
-  }
-  
-  .logo {
-    font-weight: 700;
-    line-height: 60px;
-  }
-  
-  /* Style the login box */
-  .loginbox {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 40px; /* Increase top margin for more space */
-  }
-  
-  .loginbox h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    text-align: center;
-  }
-  
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Add space between email and password fields */
-  input[type="email"] {
-    margin-bottom: 20px; /* Increase margin between fields */
-  }
-  
-  button#signIn {
-    background-color: #151515;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    margin-top: 20px;
-  }
+/* Style the header */
+header {
+  padding: 40px 0; /* Increase top and bottom padding for more space */
+}
+
+.logo {
+  font-weight: 700;
+  line-height: 60px;
+}
+
+/* Style the login box */
+.loginbox {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px; /* Increase top margin for more space */
+}
+
+.loginbox h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.loginbox > div {
+  @apply w-full;
+}
+
+form {
+  text-align: center;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Add space between email and password fields */
+input[type="email"] {
+  margin-bottom: 20px; /* Increase margin between fields */
+}
+
+button#signIn {
+  background-color: #151515;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+}
