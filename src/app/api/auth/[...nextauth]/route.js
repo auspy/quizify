@@ -1,40 +1,35 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const users = [
-  {
-    id: 1,
-    username: "John Doe",
-    password: "password",
-  },
-];
-
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "username" },
+        username: { label: "username", type: "text", placeholder: "username" },
         password: { label: "Password", type: "password" },
+        type: { label: "type", type: "select", options: ["login", "register"] },
       },
       async authorize(credentials, req) {
         // If no error and we have user data, return it
-        const { username, password } = credentials;
-        console.log("credentials", credentials);
-        const user = users.find(
-          (user) => user.username === username && user.password === password
-        );
-        if (user) {
+        const { username, password, type } = credentials;
+        const user = await fetch(
+          `http://localhost:3000/api/db/getUsers/${username?.trim()}`
+        ).then((res) => res.json());
+        if (user && user.password === password) {
+          console.log("-- login successful --");
           return user;
         }
+        console.log("-- login failed --");
         // Return null if user data could not be retrieved
         throw new Error("user not found");
       },
     }),
   ],
   pages: {
-    signIn: "/auth",
-    error: "/auth",
+    signIn: "/",
+    error: "/",
+    signOut: "/",
   },
 });
 
