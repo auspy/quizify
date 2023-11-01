@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const users = [
   {
@@ -11,7 +12,7 @@ const users = [
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         username: { label: "Username", type: "text", placeholder: "username" },
         password: { label: "Password", type: "password" },
@@ -19,6 +20,7 @@ const handler = NextAuth({
       async authorize(credentials, req) {
         // If no error and we have user data, return it
         const { username, password } = credentials;
+        console.log("credentials", credentials);
         const user = users.find(
           (user) => user.username === username && user.password === password
         );
@@ -26,10 +28,14 @@ const handler = NextAuth({
           return user;
         }
         // Return null if user data could not be retrieved
-        return null;
+        throw new Error("user not found");
       },
     }),
   ],
+  pages: {
+    signIn: "/auth",
+    error: "/auth",
+  },
 });
 
 export { handler as GET, handler as POST };
