@@ -1,3 +1,8 @@
+import SimplePage from "../../components/SimplePage";
 export default function page() {
-    return <>dashboard</>
+  return (
+    <>
+      <SimplePage />
+    </>
+  );
 }
