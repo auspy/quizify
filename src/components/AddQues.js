@@ -1,18 +1,58 @@
-const AddQues = () => {
+"use client"
+import { useState } from 'react';
+
+const AddQues = (props) => {
   const commonStyle = {
     style: {
       border: "1px solid var(--border)",
     },
   };
+
+  const [message, setMessage] = useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const url = "http://localhost:3000/api/db/createQuestion";
+    const type = document.querySelector('.type').value;
+    const ques = document.querySelector('.ques').value;
+    const correct = document.querySelector('.correct').value;
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        type: type,
+        ques: ques,
+        correct: correct,
+        examId: parseInt(props.examId)
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      let data = await fetch(url, options);
+      data = await data.json();
+      if (data) {
+        setMessage("Success");
+      }
+    }
+    catch (err) {
+      setMessage("Failure");
+    }
+  };
+
   return (
     <div className="pi30 mt-7">
       <h2 className="">Add question</h2>
       <div className="flex flex-col max-w-[400px]">
-        <input {...commonStyle} type="text" placeholder="Type" />
-        <input {...commonStyle} type="text " placeholder="question" />
-        <button id="signUp" className="btn">
+        <input {...commonStyle} type="text" placeholder="Type" className="type" />
+        <input {...commonStyle} type="text" placeholder="question" className="ques" />
+        <input {...commonStyle} type="text" placeholder="Answer" className="correct" />
+        <button id="signUp" className="btn" onClick={submit}>
           Add Question
         </button>
+        {message && <h1>{message}</h1>}
       </div>
     </div>
   );
