@@ -6,7 +6,7 @@ const getQuestions = async (examId) => {
   const data = await fetch(urlLocal + `/api/db/getQuestions/${examId}`).then(
     (res) => res.json()
   );
-  console.log("data", data);
+  // console.log("data", data);
   return data;
 };
 const MstQues = async ({ examId }) => {

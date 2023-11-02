@@ -13,12 +13,22 @@ export default withAuth(
         // console.log(
         //   "authorized",
         //   req.nextUrl.pathname,
-        //   // token,
+        //   token
         //   // req.nextUrl.pathname?.split("/")
         // );
+        // console.log(
+        //   "here is the token",
+        //   req.nextUrl.pathname.split("/dashboard")[1]
+        // );
+        // console.log(
+        //   "token",
+        //   req.nextUrl.pathname.split("/dashboard")?.[1],
+        //   req.nextUrl.pathname.split("/question")?.[1]
+        // );
+        const a = req.nextUrl.pathname.split("/dashboard")?.[1];
         const nextSession = req.cookies.get("next-auth.session-token");
         if (
-          // req.nextUrl.pathname?.split("/").filter((item) => item).length > 1 &&
+          (a?.length > 0 && token?.user?.username != "admin") ||
           !nextSession
         ) {
           console.log("redirecting to /");
@@ -31,5 +41,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/question/:path*"],
 };

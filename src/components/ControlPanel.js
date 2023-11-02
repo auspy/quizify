@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { urlLocal } from "../../constants";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
+
 const getCards = async (userId) => {
   if (!userId) return;
   const data = await fetch(urlLocal + `/api/db/getExams/${userId}`).then(
@@ -11,10 +10,8 @@ const getCards = async (userId) => {
   return data;
 };
 const colors = ["5DE7A5", "E7D15D", "815DE7", "E75DB0"];
-async function ControlPanel() {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-  const newcards = await getCards(user?.id);
+async function ControlPanel({ userId }) {
+  const newcards = await getCards(userId);
   const cards = (Array.isArray(newcards) && newcards) || [
     {
       name: "CS30003",
@@ -22,7 +19,7 @@ async function ControlPanel() {
       subjectCode: "MST1",
       created_at: new Date().getFullYear(),
       type: "MST-1",
-      examId: "MST1-2022",
+      examId: 1,
     },
   ];
 
