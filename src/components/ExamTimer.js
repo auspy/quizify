@@ -1,7 +1,39 @@
 "use client"
+import Image from 'next/image'
 import { useState, useEffect} from "react";
+import { useRouter } from 'next/router';
   const ExamTimer = ({ duration }) => {
     const [timer, setTimer] = useState(duration);
+    const router = useRouter();
+
+    const displayScaryImage = () => {
+      const overlay = document.createElement('div');
+      overlay.style = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      `;
+
+      const image = document.createElement('img');
+      image.src = '/scary-image.jpg'; // Replace with your scary image URL
+      image.style = `
+        max-width: 80%;
+        max-height: 80%;
+      `;
+
+      overlay.appendChild(image);
+      document.body.appendChild(overlay);
+      setTimeout(() => {
+        router.push('/');
+      }, 5000);
+    };
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -22,10 +54,9 @@ import { useState, useEffect} from "react";
       const handleVisibilityChange = () => {
         if (document.visibilityState === 'visible') {
           console.log('Tab is active');
-          // Add actions to be performed when the tab is active
         } else {
           console.log('Tab is inactive');
-          // Add actions to be performed when the tab is inactive
+          displayScaryImage();
         }
       };
   
@@ -34,7 +65,7 @@ import { useState, useEffect} from "react";
       return () => {
         document.removeEventListener('visibilitychange', handleVisibilityChange);
       };
-    }, []);
+    }, [router]);
 
     useEffect(() => {
       const handleFullScreenChange = () => {
