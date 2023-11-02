@@ -11,7 +11,7 @@ async function handler(req, { params }) {
     },
   });
   
-  return new Response(JSON.stringify(username,password));
+  return new Response(u);
 }
 
 export { handler as GET };
