@@ -2,9 +2,12 @@ import { urlLocal } from "../../../../constants";
 import Questions from "../../../components/Questions";
 const getQuestions = async (examId) => {
   if (!examId) return;
-  const data = await fetch(urlLocal + `/api/db/getQuestions/${examId}`).then(
-    (res) => res.json()
-  );
+  const data = await fetch(urlLocal + `/api/db/getQuestions/${examId}`, {
+    method: "GET",
+    headers: {
+      "Cache-Control": "no-cache",
+    },
+  }).then((res) => res.json());
   // console.log("data", data);
   return data;
 };

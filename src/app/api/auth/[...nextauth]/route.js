@@ -21,6 +21,28 @@ export const authOptions = {
           .catch((e) => {
             console.log(e, "error in authorize");
           });
+        if (type === "register") {
+          if (user) {
+            console.log("-- register failed --");
+            throw new Error("user already exists");
+          }
+          const newUser = await fetch(
+            `http://localhost:3000/api/db/createUser`,
+            {
+              method: "POST",
+              body: JSON.stringify({ username, password }),
+            }
+          )
+            .then((res) => {
+              alert("User registered successfully 👍! Please login");
+              return res.json();
+            })
+            .catch((e) => {
+              console.log(e, "error in authorize");
+            });
+
+          throw new Error("User registered successfully 👍! Please login");
+        }
         console.log(user, "user");
         if (user && user.password === password) {
           console.log("-- login successful --");

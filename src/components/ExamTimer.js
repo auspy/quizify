@@ -1,14 +1,14 @@
-"use client"
-import Image from 'next/image'
-import { useState, useEffect} from "react";
-import { useRouter } from 'next/router';
-  const ExamTimer = ({ duration }) => {
-    const [timer, setTimer] = useState(duration);
-    const router = useRouter();
+"use client";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+const ExamTimer = ({ duration }) => {
+  const [timer, setTimer] = useState(duration);
+  const router = useRouter();
 
-    const displayScaryImage = () => {
-      const overlay = document.createElement('div');
-      overlay.style = `
+  const displayScaryImage = () => {
+    const overlay = document.createElement("div");
+    overlay.style = `
         position: fixed;
         top: 0;
         left: 0;
@@ -21,84 +21,95 @@ import { useRouter } from 'next/router';
         align-items: center;
       `;
 
-      const image = document.createElement('img');
-      image.src = '/scary-image.jpg'; // Replace with your scary image URL
-      image.style = `
+    const image = document.createElement("img");
+    image.src = "/scary-image.jpg"; // Replace with your scary image URL
+    image.style = `
         max-width: 80%;
         max-height: 80%;
       `;
 
-      overlay.appendChild(image);
-      document.body.appendChild(overlay);
-      setTimeout(() => {
-        router.push('/');
-      }, 5000);
+    overlay.appendChild(image);
+    document.body.appendChild(overlay);
+    setTimeout(() => {
+      router.push("/");
+    }, 5000);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (timer <= 0) {
+      alert("Time is up! Your exam has ended.");
+    }
+  }, [timer]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        console.log("Tab is active");
+      } else {
+        console.log("Tab is inactive");
+        displayScaryImage();
+      }
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTimer((prevTimer) => prevTimer - 1);
-        }, 1000);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-        return () => clearInterval(interval);
-    }, []);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [router]);
+  console.log("router", router);
 
-    useEffect(() => {
-        if (timer <= 0) {
-          
-            alert('Time is up! Your exam has ended.');
-        }
-    }, [timer]);
-    
-    useEffect(() => {
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === 'visible') {
-          console.log('Tab is active');
-        } else {
-          console.log('Tab is inactive');
-          displayScaryImage();
-        }
-      };
-  
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-  
-      return () => {
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
-      };
-    }, [router]);
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement
+      ) {
+        console.log("Full screen mode is active");
+      } else {
+        console.log("Not in full screen mode");
+      }
+    };
 
-    useEffect(() => {
-      const handleFullScreenChange = () => {
-        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-          console.log('Full screen mode is active');
-         
-        } else {
-          console.log('Not in full screen mode');
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullScreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullScreenChange);
 
-        }
-      };
-  
-      document.addEventListener('fullscreenchange', handleFullScreenChange);
-      document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
-      document.addEventListener('mozfullscreenchange', handleFullScreenChange);
-  
-      return () => {
-        document.removeEventListener('fullscreenchange', handleFullScreenChange);
-        document.removeEventListener('webkitfullscreenchange', handleFullScreenChange);
-        document.removeEventListener('mozfullscreenchange', handleFullScreenChange);
-      };
-    }, []);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullScreenChange
+      );
+      document.removeEventListener(
+        "mozfullscreenchange",
+        handleFullScreenChange
+      );
+    };
+  }, []);
 
-const formatTime = (time) => {
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  };
+  return (
+    <>
+      <div>{formatTime(timer)}</div>
+    </>
+  );
 };
-return(
-  <>
-  <div>{formatTime(timer)}</div>
-  </>
-)
-  }
 
-  export default ExamTimer;
+export default ExamTimer;

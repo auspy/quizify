@@ -38,6 +38,10 @@ const Questions = ({ questions = [], examId }) => {
     );
   }
   const handleNext = () => {
+    if (currentQuestion >= n - 1) {
+      alert("All questions answered. Pls submit exam");
+      return;
+    }
     setCurrentQuestion(currentQuestion + 1);
   };
   const handleFinish = () => {
@@ -57,7 +61,7 @@ const Questions = ({ questions = [], examId }) => {
         >
           <h2>Question {currentQuestion + 1}</h2>
           <p>{question?.ques}</p>
-          {question.type == "mcq" ? (
+          {question?.type == "mcq" ? (
             <select
               onChange={(e) => {
                 const a = [...answers];
@@ -79,12 +83,21 @@ const Questions = ({ questions = [], examId }) => {
                 const a = [...answers];
                 a[currentQuestion] = e.target.ans.value;
                 setAnswers(a);
-                handleNext();
                 e.target.ans.value = "";
+                handleNext();
               }}
             >
-              <textarea name="ans" rows={10}></textarea>
-              <button className="mt-3 font-semibold text-base">Submit</button>
+              <textarea
+                disabled={currentQuestion >= n}
+                name="ans"
+                rows={10}
+              ></textarea>
+              <button
+                disabled={currentQuestion >= n}
+                className="mt-3 font-semibold text-base"
+              >
+                Submit
+              </button>
             </form>
           )}
         </div>
@@ -96,12 +109,12 @@ const Questions = ({ questions = [], examId }) => {
             flex: 1.5,
           }}
         >
-          <div class="p-7 flex flex-col items-start gap-5">
+          <div className="p-7 flex flex-col items-start gap-5">
             <div className="flex flex-wrap gap-4">{divElements}</div>
             <div className="flex gap-4">
               <button
                 className="font-semibold text-base"
-                disabled={currentQuestion == n - 1}
+                disabled={currentQuestion >= n - 1}
                 onClick={handleNext}
               >
                 Next
