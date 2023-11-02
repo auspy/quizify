@@ -1,6 +1,8 @@
 import prisma from "../../../../../../prisma/prismaClient";
 
-async function handler(req, { params }) {
+export const dynamic = "force-dynamic";
+
+async function handler(req, { params }, res) {
   const { examId } = params;
   const questions = await prisma.questions.findMany({
     where: {
@@ -15,7 +17,7 @@ async function handler(req, { params }) {
   //     questions: true,
   //   },
   // });
-  console.log("all available questions ", questions);
+  console.log("all available questions ", questions, res);
   return new Response(JSON.stringify(questions));
 }
 

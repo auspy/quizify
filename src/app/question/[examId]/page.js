@@ -5,7 +5,7 @@ const getQuestions = async (examId) => {
   const data = await fetch(urlLocal + `/api/db/getQuestions/${examId}`, {
     method: "GET",
     headers: {
-      "Cache-Control": "no-cache",
+      "Cache-Control": "no-store",
     },
   }).then((res) => res.json());
   // console.log("data", data);
