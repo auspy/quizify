@@ -15,7 +15,13 @@ const handler = NextAuth({
         const { username, password, type } = credentials;
         const user = await fetch(
           `http://localhost:3000/api/db/getUsers/${username?.trim()}`
-        ).then((res) => res.json());
+        )
+          .then((res) => {
+            return res.json();
+          })
+          .catch((e) => {
+            console.log(e, "error in authorize");
+          });
         if (user && user.password === password) {
           console.log("-- login successful --");
           return user;

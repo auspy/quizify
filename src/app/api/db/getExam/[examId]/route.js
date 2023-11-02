@@ -2,14 +2,13 @@ import prisma from "../../../../../../prisma/prismaClient";
 
 async function handler(req, { params }) {
   const { examId } = params;
-  console.log("examId", examId);
   const e = await prisma.exams.findUnique({
     where: {
       examId: examId,
     },
   });
-  console.log(await(req.json()));
-  return new Response(e, examId);
+  console.log("exam details", e);
+  return new Response(JSON.stringify(e));
 }
 
-export { handler as GET, handler as POST };
+export { handler as GET };

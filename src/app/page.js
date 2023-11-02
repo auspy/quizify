@@ -10,7 +10,7 @@ export default function page() {
   const [isLoginPage, setIsLoginPage] = useState(true);
   useEffect(() => {
     if (error) {
-      alert("Error: ", error);
+      alert("Error: " + error);
     }
   }, [error]);
   const [username, setUsername] = useState("");
