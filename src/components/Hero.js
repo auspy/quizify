@@ -1,6 +1,6 @@
 const Hero = ({ heading = "😊 welcome to quizify 😉" }) => {
   return (
-    <div className="my-20">
+    <div className="my-20 text-center">
       <h5>Hello! User</h5>
       <h1>{heading}</h1>
     </div>

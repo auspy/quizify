@@ -11,7 +11,7 @@ async function handler(req, { params }) {
       examId: "asc",
     },
   });
-  console.log("all exams", e);
+  console.log("total exams found ", e.length);
   return new Response(JSON.stringify(e));
 }
 

@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -22,9 +21,10 @@ const handler = NextAuth({
           .catch((e) => {
             console.log(e, "error in authorize");
           });
+        console.log(user, "user");
         if (user && user.password === password) {
           console.log("-- login successful --");
-          return user;
+          return { username: user.username, id: user.id };
         }
         console.log("-- login failed --");
         // Return null if user data could not be retrieved
@@ -32,11 +32,37 @@ const handler = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    // async signIn(user, account, profile) {
+    //   console.log("sign in", user, account, profile);
+    //   return true;
+    // },
+    // async redirect(url, baseUrl) {
+    //   console.log("redirect", url, baseUrl);
+    //   return baseUrl;
+    // },
+    session: async ({ session, user, token }) => {
+      const newSession = {
+        ...session,
+        user: {
+          // ...session.user,
+          ...token?.token?.user,
+        },
+      };
+      // console.log("session", session, newSession);
+      return newSession;
+    },
+    async jwt(token, user, account, profile, isNewUser) {
+      // console.log("jwt", token, user, account, profile, isNewUser);
+      return { ...token, ...user };
+    },
+  },
   pages: {
     signIn: "/",
     error: "/",
     signOut: "/",
   },
-});
+};
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

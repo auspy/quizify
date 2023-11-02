@@ -48,6 +48,11 @@ h1 {
   font-weight: 700;
   text-transform: capitalize;
 }
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
 
 h6 {
   font-size: 16px;
@@ -83,4 +88,3 @@ h6 {
   justify-content: center;
   align-items: center;
 }
-
