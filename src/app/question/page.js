@@ -1,4 +1,5 @@
 import Header from "../../components/Header";
+import "../globals.css"
 
 export default function App() {
   let n = 20;
@@ -14,6 +15,10 @@ export default function App() {
     )}`;
 
     return color;
+  }
+
+  function startTimer(){
+
   }
 
   for (let i = 1; i <= n; i++) {
