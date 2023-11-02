@@ -4,7 +4,7 @@ async function handler(req, { params }) {
   const { examId } = params;
   const e = await prisma.exams.findUnique({
     where: {
-      examId: examId,
+      examId: Number(examId),
     },
   });
   console.log("exam details", e);
