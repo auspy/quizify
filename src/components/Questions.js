@@ -44,12 +44,34 @@ const Questions = ({ questions = [], examId }) => {
     }
     setCurrentQuestion(currentQuestion + 1);
   };
-  const handleFinish = () => {
-    // check answers and redirect to result page with result
-    router.push(
-      `/question/${examId}/result?answers=${JSON.stringify(answers)}`
-    );
-  };
+const handleFinish = async () => {
+  try {
+    const url = `http://localhost:3000/api/db/getQuestions/${examId}`;
+    const options = {
+      method: "GET",
+    };
+    let i = 0,
+      result = 0;
+    let response = await fetch(url, options);
+    let data = await response.json();
+    const mappedData = data.map((item) => {
+      if (item.correct === answers[i]) {
+        result += 1;
+      } else {
+        result += 0;
+      }
+      i++;
+      console.log(result);
+      return item;
+    });
+
+    router.push(`/question/${examId}/result?answers=${result}`,
+  );
+  } catch (err) {
+    console.error("Error", err);
+  }
+};
+
   return (
     <>
       <div className="flex">
