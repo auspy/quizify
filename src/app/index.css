@@ -12,14 +12,6 @@
   text-transform: uppercase;
 }
 
-div {
-  font: poppins;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-align: center;
-}
-
 .container {
   width: 1380px;
   height: 220px;

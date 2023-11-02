@@ -41,7 +41,7 @@ export default function App() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="container">
         <div className="sub1">
           <h2>Question 1</h2>

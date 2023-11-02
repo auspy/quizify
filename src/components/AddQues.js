@@ -1,29 +1,21 @@
-import React from 'react'
-import Logo from './Logo';
-
-
-
-
-  
 const AddQues = () => {
+  const commonStyle = {
+    style: {
+      border: "1px solid var(--border)",
+    },
+  };
   return (
-    <>
-     <h6 className='logout'>Logout</h6>
-  
-    
-    
-    <h1 className='mst'>Maths- mst1 questions - add question</h1>
-    <div className='input'>
-    <input type="text" placeholder="Type" />
-    <input type="text " placeholder='question' />
-    <button className='btn'> Add Question</button>
+    <div className="pi30 mt-7">
+      <h2 className="">Add question</h2>
+      <div className="flex flex-col max-w-[400px]">
+        <input {...commonStyle} type="text" placeholder="Type" />
+        <input {...commonStyle} type="text " placeholder="question" />
+        <button id="signUp" className="btn">
+          Add Question
+        </button>
+      </div>
     </div>
-
-    
-    
-
-    </>
-  )
-}
+  );
+};
 
 export default AddQues;
