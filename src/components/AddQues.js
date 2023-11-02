@@ -2,6 +2,9 @@
 import { useState } from 'react';
 
 const AddQues = (props) => {
+  function addOption(){
+    console.log("hello");
+  }
   const commonStyle = {
     style: {
       border: "1px solid var(--border)",
@@ -16,6 +19,8 @@ const AddQues = (props) => {
     const type = document.querySelector('.type').value;
     const ques = document.querySelector('.ques').value;
     const correct = document.querySelector('.correct').value;
+    const option = document.querySelector(".option").value;
+  
 
     const options = {
       method: "POST",
@@ -23,7 +28,8 @@ const AddQues = (props) => {
         type: type,
         ques: ques,
         correct: correct,
-        examId: parseInt(props.examId)
+        examId: parseInt(props.examId),
+        options:option
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -49,6 +55,8 @@ const AddQues = (props) => {
         <input {...commonStyle} type="text" placeholder="Type" className="type" />
         <input {...commonStyle} type="text" placeholder="question" className="ques" />
         <input {...commonStyle} type="text" placeholder="Answer" className="correct" />
+        <input {...commonStyle} type="text" placeholder="Option" className="option" />
+      
         <button id="signUp" className="btn" onClick={submit}>
           Add Question
         </button>

@@ -24,6 +24,7 @@ model exams {
   type        String      @db.VarChar
   subject     String      @db.VarChar
   subjectCode String?     @db.VarChar
+  time        Int         @default(30) @db.SmallInt
   users       users       @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   questions   questions[]
 }
@@ -36,5 +37,6 @@ model questions {
   ques       String
   type       String   @db.VarChar
   correct    String
+  options    String?
   exams      exams    @relation(fields: [examId], references: [examId], onDelete: NoAction, onUpdate: NoAction)
 }
