@@ -8,8 +8,8 @@ const EnterExam = () => {
   const router = useRouter();
   const [examCode, setExamCode] = useState("");
   const handleClick = async () => {
-    const data = await fetch(urlLocal + `/api/db/getExam/` + 1).then((res) =>
-      res.json()
+    const data = await fetch(urlLocal + `/api/db/getExam/` + examCode).then(
+      (res) => res.json()
     );
     if (!data) {
       alert("No exam found with for code " + examCode);
