@@ -1,9 +1,13 @@
+"use client"
+import ExamTimer from "../../components/ExamTimer";
 import Header from "../../components/Header";
 import "../globals.css"
+
 
 export default function App() {
   let n = 20;
   let divElements = [];
+  let duration =300;
 
   function getRandomColor() {
     const red = Math.floor(Math.random() * 256);
@@ -17,9 +21,6 @@ export default function App() {
     return color;
   }
 
-  function startTimer(){
-
-  }
 
   for (let i = 1; i <= n; i++) {
     divElements.push(
@@ -58,7 +59,9 @@ export default function App() {
         </div>
 
         <div className="sub2">{divElements}</div>
+        <ExamTimer duration={duration}/>
       </div>
+
     </>
   );
 }
