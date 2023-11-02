@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("PRISMA_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -18,7 +18,7 @@ model users {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model exams {
-  examId      BigInt      @id @default(autoincrement())
+  examId      Int         @id @default(autoincrement())
   created_at  DateTime    @default(now()) @db.Timestamptz(6)
   id          String      @db.Uuid
   type        String      @db.VarChar
@@ -30,9 +30,9 @@ model exams {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model questions {
-  quesId     BigInt   @id @unique @default(autoincrement())
+  quesId     Int      @id @unique @default(autoincrement())
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  examId     BigInt
+  examId     Int
   ques       String
   type       String   @db.VarChar
   correct    String
