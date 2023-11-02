@@ -1,5 +1,6 @@
 import { urlLocal } from "../../../../constants";
 import Questions from "../../../components/Questions";
+import ObjectDetect from "../../../components/ObjectDetect";
 const getQuestions = async (examId) => {
   if (!examId) return;
   const data = await fetch(urlLocal + `/api/db/getQuestions/${examId}`).then(
@@ -15,6 +16,7 @@ export default async function page({ params }) {
   return (
     <>
       <Questions questions={questions} examId={params.examId} />
+      <ObjectDetect />
     </>
   );
 }
