@@ -13,10 +13,26 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
   const n = questions.length;
   const question = questions[currentQuestion];
   let divElements = [];
-  const sendToResult = () =>
-    router.push(
-      `/question/${examId}/result?answers=${JSON.stringify(answers)}`
-    );
+  const handleFinish = async () => {
+    try {
+      const data = questions;
+      let result = 0;
+      const mappedData = data.map((item, i) => {
+        if (item.correct === answers[i]) {
+          result += 1;
+        }
+        console.log(result);
+        return item;
+      });
+
+      router.push(
+        `/question/${examId}/result?score=${(result / questions.length) * 100}`
+      );
+    } catch (err) {
+      console.error("Error", err);
+    }
+  };
+  const sendToResult = () => handleFinish();
   // START MONITOR CHECK
   useEffect(() => {
     async function checkScreenConfiguration() {
@@ -242,32 +258,6 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
       return;
     }
     setCurrentQuestion(currentQuestion + 1);
-  };
-  const handleFinish = async () => {
-    try {
-      const url = `http://localhost:3000/api/db/getQuestions/${examId}`;
-      const options = {
-        method: "GET",
-      };
-      let i = 0,
-        result = 0;
-      let response = await fetch(url, options);
-      let data = await response.json();
-      const mappedData = data.map((item) => {
-        if (item.correct === answers[i]) {
-          result += 1;
-        } else {
-          result += 0;
-        }
-        i++;
-        console.log(result);
-        return item;
-      });
-
-      router.push(`/question/${examId}/result?answers=${result}`);
-    } catch (err) {
-      console.error("Error", err);
-    }
   };
 
   return (
