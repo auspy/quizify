@@ -27,13 +27,10 @@ export const authOptions = {
             console.log("-- register failed --");
             throw new Error("user already exists");
           }
-          const newUser = await fetch(
-            `http://localhost:3000/api/db/createUser`,
-            {
-              method: "POST",
-              body: JSON.stringify({ username, password }),
-            }
-          )
+          const newUser = await fetch(urlLocal + `/api/db/createUser`, {
+            method: "POST",
+            body: JSON.stringify({ username, password }),
+          })
             .then((res) => {
               alert("User registered successfully 👍! Please login");
               return res.json();
