@@ -27,9 +27,18 @@ export default withAuth(
         // );
         const a = req.nextUrl.pathname.split("/dashboard")?.[1];
         const nextSession = req.cookies.get("next-auth.session-token");
+        const nextSessionSecure = req.cookies.get(
+          "__Secure-next-auth.session-token"
+        );
+        console.log(
+          "path in middleware",
+          a,
+          "is wrong login? ",
+          !(nextSession || nextSessionSecure)
+        );
         if (
           (a?.length > 0 && token?.user?.username != "admin") ||
-          !nextSession
+          !(nextSession || nextSessionSecure)
         ) {
           console.log("redirecting to /");
           return false;
