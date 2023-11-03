@@ -83,11 +83,6 @@ The web app has been deployed to "Vercel." Here is the link to access the applic
    - Execute `npm run dev` in the terminal.
    - The app will be running at [http://localhost:3000/](http://localhost:3000/).
 
-Please refer to the application's GitHub repository for detailed instructions and further updates.
-
-This readme provides an overview of the Quizify project, its features, development process, and installation guidelines. For any queries or support, please refer to the project repository or contact the developers.
-
-Thank you for using Quizify for secure online examinations!
 
 
 
@@ -99,8 +94,7 @@ Thank you for using Quizify for secure online examinations!
 
 
 
-
-
+<!-- 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -136,4 +130,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
