@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { urlLocal } from "../../../../../constants";
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -13,7 +14,7 @@ export const authOptions = {
         // If no error and we have user data, return it
         const { username, password, type } = credentials;
         const user = await fetch(
-          `http://localhost:3000/api/db/getUsers/${username?.trim()}`
+          urlLocal + `/api/db/getUsers/${username?.trim()}`
         )
           .then((res) => {
             return res.json();

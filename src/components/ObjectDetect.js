@@ -98,7 +98,7 @@ function ObjectDetect() {
       });
 
       if (!personDetected) {
-        alert("Object detected");
+        // alert("Object detected");
       }
     }
   };
