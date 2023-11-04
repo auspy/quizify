@@ -9,10 +9,19 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
     new Array(questions.length).fill(null)
   );
   const [fullscreen, setFullscreen] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const n = questions.length;
   const question = questions[currentQuestion];
   let divElements = [];
+  const img = (
+    <Image
+      src={"/ghost.jpg"}
+      style={{ zIndex: 999 }}
+      alt="funny girl"
+      fill={true}
+    />
+  );
   const handleFinish = async () => {
     try {
       const data = questions;
@@ -65,34 +74,26 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
   const leftAtRef = useRef(null);
   const [leftAt, setLeftAt] = useState(null); // [leftAt, setLeftAt
   const displayScaryImage = () => {
-    const overlay = document.createElement("div");
-    overlay.style = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      `;
-
-    const image = document.createElement("img");
-    image.src = "/scary-image.jpg"; // Replace with your scary image URL
-    image.style = `
-        max-width: 80%;
-        max-height: 80%;
-      `;
-    image.id = "scary-image";
-
-    overlay.appendChild(image);
-    document.body.appendChild(overlay);
+    // const overlay = document.createElement("div");
+    // overlay.style = `
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: rgba(0, 0, 0, 0.8);
+    //     z-index: 9999;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //   `;
+    setShowImage(true);
+    // document.body.appendChild(overlay);
     setTimeout(() => {
       // router.push("/");
-      overlay.remove();
-    }, 5000);
+      // overlay.remove();
+      setShowImage(false);
+    }, 2000);
   };
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -218,10 +219,11 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
     }
   };
 
-  if (!fullscreen) {
+  if (!fullscreen || showImage) {
     return (
       <div className="w-full h-full fccc">
         {timerEle}
+        {showImage && img}
         <button onClick={() => toggleFullScreen()}>Enter Fullscreen</button>
       </div>
     );
