@@ -1,8 +1,9 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
+import { urlLocal } from "../../constants";
 
 const AddQues = (props) => {
-  function addOption(){
+  function addOption() {
     console.log("hello");
   }
   const commonStyle = {
@@ -11,16 +12,15 @@ const AddQues = (props) => {
     },
   };
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:3000/api/db/createQuestion";
-    const type = document.querySelector('.type').value;
-    const ques = document.querySelector('.ques').value;
-    const correct = document.querySelector('.correct').value;
+    const url = urlLocal + "/api/db/createQuestion";
+    const type = document.querySelector(".type").value;
+    const ques = document.querySelector(".ques").value;
+    const correct = document.querySelector(".correct").value;
     const option = document.querySelector(".option").value;
-  
 
     const options = {
       method: "POST",
@@ -29,10 +29,10 @@ const AddQues = (props) => {
         ques: ques,
         correct: correct,
         examId: parseInt(props.examId),
-        options:option
+        options: option,
       }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
@@ -42,8 +42,7 @@ const AddQues = (props) => {
       if (data) {
         setMessage("Success");
       }
-    }
-    catch (err) {
+    } catch (err) {
       setMessage("Failure");
     }
   };
@@ -52,11 +51,31 @@ const AddQues = (props) => {
     <div className="pi30 mt-7">
       <h2 className="">Add question</h2>
       <div className="flex flex-col max-w-[400px]">
-        <input {...commonStyle} type="text" placeholder="Type" className="type" />
-        <input {...commonStyle} type="text" placeholder="question" className="ques" />
-        <input {...commonStyle} type="text" placeholder="Answer" className="correct" />
-        <input {...commonStyle} type="text" placeholder="Option" className="option" />
-      
+        <input
+          {...commonStyle}
+          type="text"
+          placeholder="Type"
+          className="type"
+        />
+        <input
+          {...commonStyle}
+          type="text"
+          placeholder="question"
+          className="ques"
+        />
+        <input
+          {...commonStyle}
+          type="text"
+          placeholder="Answer"
+          className="correct"
+        />
+        <input
+          {...commonStyle}
+          type="text"
+          placeholder="Option"
+          className="option"
+        />
+
         <button id="signUp" className="btn" onClick={submit}>
           Add Question
         </button>
