@@ -8,13 +8,21 @@ Quizify is an advanced, browser-based exam proctoring application designed to co
 
 ## Landing Page
 - Seamless landing page with Login/SignUp Button.
-![Quizify Logo]("C:\Users\91701\Downloads\quizifyLogo.jpeg")
+  
+![quizifyLogo](https://github.com/priyankashah3107/quizify/assets/105877016/f2612b46-94ea-41e2-ae68-902d98a19691)
 
-![Welcome Page]("C:\Users\91701\Downloads\welcomePage.jpeg")
+- Welcome page
+
+
+![welcomePage](https://github.com/priyankashah3107/quizify/assets/105877016/0ea01b39-28d3-450b-a72a-1b9304c777f0)
 
 ##  Student DashBoard
 
-[Demo video](https://www.yourfilehost.com/yourvideo.mp4) yaha video ka link add kr dio apne system se 
+
+
+
+https://github.com/priyankashah3107/quizify/assets/105877016/b85ebd21-8c88-4325-9735-f4ca8a9ea2c5
+
 
 ### Features
 - **Anti-Cheating Measures**: Prevents secondary monitor usage, enables microphone and camera access for recording, and restricts additional tab openings during exams.
@@ -57,14 +65,11 @@ Quizify is an advanced, browser-based exam proctoring application designed to co
 
 ### Step 4: Refinement and Testing
 - **Client-Side Logic Enhancement**: Updated logic to utilize actual API data.
-- **Testing and Bug Fixes**: Tested functionalities for various scenarios and resolved identified issues.
+- **Testing and Bug Fixes**: Tested functionalities for various scenarios and resolve identified issues.
 
-#### Resolved Bugs:
-- JSON data (404) accessed for undefined routes (Resolved)
-- Server operations on dates corrected for proper time zone functionality (from UTC to IST).
 
 ### Deployment
-The web app has been deployed to "Vercel." Here is the link to access the application: [Quizify App](#link)
+The web app has been deployed to "Vercel." Here is the link to access the application: [Quizify App](https://thequizify.vercel.app/)
 
 ## Installation/Environment Setup
 
