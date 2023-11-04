@@ -42,16 +42,12 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
     }
   };
   const sendToResult = () => handleFinish();
-  // START MONITOR CHECK
+
   useEffect(() => {
     async function checkScreenConfiguration() {
       const details = await window.getScreenDetails();
-      // console.log(
-      //   "checkScreenConfiguration",
-      //   details,
-      //   window.screen.extended ||
-      //     (details ? details.screens?.length > 1 : false)
-      // );
+      
+      console.log( "These are details: " + JSON.stringify(details));
       if (
         window.screen.extended ||
         (details ? details.screens?.length > 1 : false)
@@ -73,28 +69,40 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
   const [count, setCount] = useState(0);
   const leftAtRef = useRef(null);
   const [leftAt, setLeftAt] = useState(null); // [leftAt, setLeftAt
+
+  const playScarySound= ()=>{
+    var sound = new Audio('/scream.mp3');
+    sound.play();
+  }
   const displayScaryImage = () => {
-    // const overlay = document.createElement("div");
-    // overlay.style = `
-    //     position: fixed;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    //     background-color: rgba(0, 0, 0, 0.8);
-    //     z-index: 9999;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //   `;
+    const overlay = document.createElement("div");
+    overlay.style = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+     
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      `;
     setShowImage(true);
-    // document.body.appendChild(overlay);
+    document.body.appendChild(overlay);
+    setTimeout(()=>{
+      playScarySound();
+    },1000)
+
     setTimeout(() => {
-      // router.push("/");
-      // overlay.remove();
+   
       setShowImage(false);
-    }, 2000);
+      overlay.remove();
+      sendToResult();
+    }, 8000);
+   
   };
+
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -110,6 +118,7 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
       sendToResult();
     }
   }, [timer]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
@@ -117,6 +126,7 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
 
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -130,7 +140,7 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
           leftAtRef.current &&
           leftAtRef.current + 10000 < new Date().getTime()
         ) {
-          alert("You have staryed out for too long. Your exam has ended.");
+          alert("You have stayed out for too long. Your exam has ended.");
           // send to result screen
           sendToResult();
         }
@@ -141,17 +151,17 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
         leftAtRef.current = new Date().getTime();
         countRef.current = countRef.current + 1;
         setCount((p) => p + 1);
-        if (countRef.current == 1) {
+        if (countRef.current == 2) {
           displayScaryImage();
         }
-        if (countRef.current > 3) {
+        if (countRef.current > 2) {
           alert("You have exceeded tab switch chances. Your exam has ended.");
           // send to result screen
           sendToResult();
         } else {
           alert(
             `You left the tab. You have ${Number(
-              3 - countRef.current
+              2 - countRef.current
             )} chance remaining.`
           );
         }
@@ -195,6 +205,7 @@ const Questions = ({ questions = [], examId, time = 300 }) => {
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
     };
   }, []);
+
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       const element = document.documentElement; // Replace with the element you
